@@ -26,8 +26,10 @@ from .workday import WorkdayAdapter
 from .join import JoinAdapter
 from .greenhouse import GreenhouseAdapter
 from .ashby import AshbyAdapter
+from .phenom import PhenomAdapter
 
 _ADAPTERS: List[ATSAdapter] = [
+    PhenomAdapter(),
     LeverAdapter(),
     MetaCareersAdapter(),
     MicrosoftAdapter(),

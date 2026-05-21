@@ -8,7 +8,6 @@ from typing import Iterable, List, Tuple
 from data.model import load_pages, JobBoard, Job  # your helper
 from pathlib import Path
 
-from services.image.logo_preprocess import preprocess_logo
 from ui.cards.job import display_job
 
 PAGES_DIR = Path("data/pages")  # adjust if needed

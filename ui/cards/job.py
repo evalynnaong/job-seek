@@ -3,7 +3,7 @@ import streamlit as st
 from datetime import timedelta
 
 from data.model import Job
-from services.image.logo_preprocess import preprocess_logo
+from ui.logo import display_logo
 
 
 def display_job(slug: str, job: Job, *, include_logo: str | None = None):
@@ -42,7 +42,7 @@ def display_job(slug: str, job: Job, *, include_logo: str | None = None):
     ):
         with st.container(key=f"logo-desc-{slug}", horizontal=True):
             if include_logo:
-                st.image(preprocess_logo(include_logo), width=64)
+                display_logo(include_logo, job.title, width=64)
             with st.container(key=f"desc-{slug}"):
                 st.markdown(f"**{job.title}**")
                 st.markdown(" ".join(badges), help=badge_help)

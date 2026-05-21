@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 import streamlit as st
 from data.model import JobBoard, slugify, load_pages  # <- import load_pages
-from services.image.logo_preprocess import preprocess_logo
+from ui.logo import display_logo
 
 PAGES_DIR = Path(__file__).resolve().parents[2] / "data" / "pages"
 PAGES_SOURCE_DIR = Path(__file__).resolve().parents[2] / "ui" / "page" / "generated"
@@ -23,7 +23,7 @@ def render_add_page_form():
         with title_col:
             title = st.text_input("Title", placeholder="e.g., Google")
         with icon_col:
-            icon_url = st.text_input("Icon URL", placeholder="https://.../favicon.ico")
+            icon_url = st.text_input("Icon URL", placeholder="Optional: https://.../favicon.ico")
 
         website_url = st.text_input("Job Board URL", placeholder="https://www.example.com")
         # If these container kwargs don't exist in your Streamlit version, remove them.
@@ -33,8 +33,8 @@ def render_add_page_form():
     status_holder = st.empty()
 
     if submitted:
-        if not title or not website_url or not icon_url:
-            status_holder.error("Please fill Title, Website URL, and Icon URL.")
+        if not title or not website_url:
+            status_holder.error("Please fill Title and Job Board URL.")
             return
 
         page = JobBoard(
@@ -79,7 +79,7 @@ def render_add_page_form():
                     vertical_alignment="center",
                     key=f"board-icon-title-{file_path.stem}"
                 ):
-                    st.image(preprocess_logo(str(page.icon_url)), width=64)
+                    display_logo(page.icon_url, page.title, width=64)
                     st.markdown(f"**{page.title}**")
 
                 with st.container(

@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import streamlit as st
 from data.model import load_pages, slugify, JobBoard
-from services.image.logo_preprocess import preprocess_logo
+from ui.logo import display_logo
 from ui.cards.job import display_job
 
 PAGES_DIR = Path(__file__).resolve().parents[1] / "data" / "pages"
@@ -42,7 +42,7 @@ def _render_page(slug: str):
         horizontal_alignment="distribute",
         vertical_alignment="center"
     ):
-        st.image(preprocess_logo(str(page.icon_url)), width=64)
+        display_logo(page.icon_url, page.title, width=64)
 
         with st.container(
             horizontal=True,
